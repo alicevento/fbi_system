@@ -1,23 +1,29 @@
 const express = require('express')
-const users = require('./data/users.js')
+const users = require('./data/agentes')
 const app = express()
 const jwt = require('jsonwebtoken')
+const path = require('path')
 
 app.use(express.json())
 
-app.listen(3000, () => console.log('Your app listening on port 3000'))
+app.listen(3000, () => console.log('Servidor escuchado por el puerto 3000'))
+
+
+//Servidor para archivos estáticos desde la carpeta public 
+app.use(express.static(path.join(__dirname + '/public')));
+
 const secretKey = "superClave"
 
 app.get('/', (req, res) => {
-  res.send('Probando servidor...')
-})
+  res.sendFile(path.join(__dirname + '/public/index.html'))
+});
 
 // Paso 1
-app.get("/login", (req, res) => {
+app.get("/SignIn", (req, res) => {
     // Paso 2
     const { email, password } = req.query
     // Paso 3
-    const user = users.find((u) => u.email == email && u.password == password);
+    const user = agentes.results.find((u) => u.email == email && u.password == password);
     // Paso 4
     if (user) {
         
@@ -53,7 +59,7 @@ app.get('/dashboard',  (req, res) => {
             err ? 
             res.status(403).send("Token inválido o ha expirado")
             : 
-            res.status(200).send("Autorizado a la ruta: "+data.data.email );
+            res.status(200).send(`Bienvenido a la ruta Dashboard, ${data.email}`);
         });
     }
 

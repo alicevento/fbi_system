@@ -22,7 +22,7 @@ app.get("/SignIn", (req, res) => {
   const { email, password } = req.query;
   // Paso 3
   const user = agentes.find((u) => u.email == email && u.password == password);
-  console.log(user);
+  // console.log(user);
   // Paso 4
   if (user) {
     // Paso 5
@@ -43,6 +43,7 @@ app.get("/SignIn", (req, res) => {
             </script>`);
   } else {
     // Paso 7
+    console.log("Usuario o contraseña incorrecta");
     res.send("Usuario o contraseña incorrecta");
   }
 });

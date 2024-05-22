@@ -39,7 +39,7 @@ app.get("/SignIn", (req, res) => {
             <h3>Bienvenido Agente , ${email}.</h3>
 
             <script>
-                localStorage.setItem('token', '${token}')
+            SessionStorage.setItem('token', '${token}')
             </script>`);
   } else {
     // Paso 7
